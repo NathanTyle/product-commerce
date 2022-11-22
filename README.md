@@ -1,7 +1,7 @@
 # product-commerce
  https://github.com/NathanTyle/product-commerce
   # Description
-  Generates prompts that allow you to add view and remove employees from a database
+  an app that connects to insomnia and allows you to view all objects, view one object by id and add and or delete an object 
   # Table of contents
 - [product-commerce](#product-commerce)
 - [Description](#description)
