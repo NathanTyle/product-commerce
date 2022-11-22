@@ -6,13 +6,12 @@ const { Tag, Product, ProductTag } = require('../../models');
 router.get('/', (req, res) => {
   // find all tags
   // be sure to include its associated Product data
-  Tag.findall({
-    attributes: ["id", "product_name", "price", "stock", "category_id"],
+  Tag.findAll({
+    attributes: ["id", "tag_name"],
     include: [
       {
         model: Product,
-        attributes: ["id",
-      "product_name"],
+        attributes: ["id", "product_name", "price", "stock", "category_id"],
       },
     ],
   })
@@ -32,7 +31,8 @@ router.get('/:id', (req, res) => {
     },
     include: {
       model: Product,
-      attributes: ["id", "product_name", "price", "stock", "category_id"]
+      attributes: ["id", "product_name", "price", "stock", "category_id"],
+      through: ProductTag
     }
   })
   .then(productData => res.json(productData))
@@ -45,7 +45,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   // create a new tag
   Tag.create({
-    tag_id: req.body.tag_id
+    tag_name: req.body.tag_name
   })
   .then(tagData => res.json(tagData))
   .catch(err => {
@@ -58,7 +58,7 @@ router.put('/:id', (req, res) => {
   // update a tag's name by its `id` value
   Tag.update(
     {
-      tag_id: req.body.tag_id
+      tag_name: req.body.tag_name
     },
     {
       where: {
